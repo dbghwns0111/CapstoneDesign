@@ -19,7 +19,7 @@ print(f"✅ 현재 장치: {device}")
 seq_len = 24
 start_eval_date = "2010-01-01"
 
-df = pd.read_csv("C:/Users/USER/desktop/캡스톤디자인/data/상관계수 제거버전/석유류_품목.csv", encoding="cp949")
+df = pd.read_csv("C:/캡스톤디자인/CapstoneDesign/data/상관계수 제거버전/석유류_품목.csv", encoding="cp949")
 df["날짜"] = pd.to_datetime(df["날짜"])
 df.set_index("날짜", inplace=True)
 item = "휘발유"
@@ -91,7 +91,7 @@ for i in range(eval_start_idx, len(yoy_scaled) - 1):
 
 # 성능 출력
 mae = mean_absolute_error(y_true, y_pred)
-rmse = root_mean_squared_error(y_true, y_pred, squared=False)
+rmse = mean_squared_error(y_true, y_pred, squared=False)
 r2 = r2_score(y_true, y_pred)
 print(f"\n검증 시작 시점: {start_eval_date} ~ {pred_dates[-1].strftime('%Y-%m')} 까지")
 print(f"MAE:  {mae:.4f}")
@@ -107,3 +107,8 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
+# 예측 결과를 CSV 파일로 저장
+pred_df = pd.DataFrame({"날짜": pred_dates, "실제 YoY": y_true, "예측 YoY": y_pred})
+pred_df.set_index("날짜", inplace=True)
+pred_df.to_csv("C:/캡스톤디자인/CapstoneDesign/results/석유류_품목_예측결과.csv", encoding="cp949")

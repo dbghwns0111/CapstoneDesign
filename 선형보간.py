@@ -30,4 +30,4 @@ daily_df.rename(columns={'index': 'date'}, inplace=True)
 daily_df.to_csv('data/fred_data_interpolated.csv', index=False)
 
 # 결과 출력 (처음 5행 확인)
-print(daily_df.head())
+print(daily_df)

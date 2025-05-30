@@ -164,6 +164,31 @@ except Exception as e:
     exit(1)
 
 # ================================
+# 7. 예측 vs 실제 CPI 그래프 저장
+# ================================
+try:
+    print("📉 Step 6: Plot Prediction vs Actual CPI")
+
+    import matplotlib.pyplot as plt
+
+    plt.figure(figsize=(12, 6))
+    plt.plot(y_true_avg, label='Actual CPI (Monthly Avg)', marker='o')
+    plt.plot(y_pred_avg, label='Predicted CPI (Monthly Avg)', marker='x')
+    plt.title('📈 Predicted vs Actual CPI (Validation Set)', fontsize=14)
+    plt.xlabel('Validation Sample Index')
+    plt.ylabel('Normalized CPI')
+    plt.legend()
+    plt.grid(True)
+    os.makedirs('./results', exist_ok=True)
+    plt.savefig('./results/cpi_prediction_vs_actual.png')
+    print("🖼️ 그래프 저장 완료: ./results/cpi_prediction_vs_actual.png\n")
+
+except Exception as e:
+    print(f"❌ 예측 그래프 시각화 실패: {e}")
+    exit(1)
+
+
+# ================================
 # 완료 메시지
 # ================================
 print("🎉 전체 파이프라인 성공적으로 완료!")
